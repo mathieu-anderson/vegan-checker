@@ -15,6 +15,7 @@
 
 .App-intro {
   font-size: large;
+  padding: 1em;
 }
 
 .App-input {
@@ -25,4 +26,8 @@
 .App-submit {
   margin: 0 1em 0 1em;
   font-size: large;
+}
+
+.App-result {
+  font-size: 4em;
 }
