@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { isVeganIngredient } from 'is-vegan';
 import checkIngredients from 'is-vegan/src/modules/IngredientChecker';
 // TODO submit pr to repo to fix faulty export
 
@@ -8,9 +7,10 @@ import './App.css';
 const initialState = {
   ingredients: '',
   formattedIngredients: [],
-  isVegan: false,
-  result: '?',
-  isVeganList: {}
+  isVeganList: {
+    nonvegan: [],
+    flagged: []
+  }
 };
 
 const formatIngredients = ingredients => {
@@ -35,21 +35,14 @@ class App extends Component {
   handleSubmit (e) {
     e.preventDefault();
     const formattedIngredients = formatIngredients(this.state.ingredients);
-
-    if (formattedIngredients.length === 1) {
-      return isVeganIngredient(...formattedIngredients)
-        ? this.setState({ isVegan: true, result: this.state.ingredients })
-        : this.setState({ isVegan: false, result: this.state.ingredients });
-    } else {
-      return this.setState({
-        formattedIngredients: formattedIngredients,
-        isVeganList: checkIngredients(formattedIngredients)
-      });
-    }
+    return this.setState({
+      formattedIngredients: formattedIngredients,
+      isVeganList: checkIngredients(formattedIngredients)
+    });
   }
 
   render () {
-    const { isVegan, isVeganList, result, formattedIngredients } = this.state;
+    const { isVeganList, formattedIngredients } = this.state;
 
     return (
       <div className='App'>
@@ -57,21 +50,15 @@ class App extends Component {
           <h1 className='App-title'>Vegan checker</h1>
         </header>
         {
-        Object.keys(isVeganList).length
-          ? <p className='App-result'>
-            {isVeganList.nonvegan.map(i => <span style={{padding: '1em', color: 'red'}}>{i}</span>)}
-            {isVeganList.flagged.map(i => <span style={{padding: '1em', color: 'orange'}}>{i}</span>)}
+          <p className='App-result'>
+            {isVeganList.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)}
+            {isVeganList.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)}
             {
               formattedIngredients.filter(i => {
                 return !isVeganList.nonvegan.includes(i) && !isVeganList.flagged.includes(i);
-              }).map(i => <span style={{ padding: '1em', color: 'green' }}>{i}</span>)
+              }).map(i => <span style={{ padding: '0.5em', color: 'green' }}>{i}</span>)
             }
           </p>
-          : <p className='App-result'>{
-            isVegan
-              ? <p style={{ color: 'green' }}>{result}</p>
-              : <p style={{ color: 'red' }}>{result}</p>
-            }</p>
       }
 
         <div className='App-form'>
