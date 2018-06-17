@@ -13,7 +13,10 @@
   font-size: 1.5em;
 }
 
-.App-intro {
+.App-form {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
   font-size: large;
   padding: 1em;
 }
