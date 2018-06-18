@@ -18,9 +18,6 @@ Start dev sever on localhost:3000
 npm start
 ```
 
-# current state
-You should be able to try it out here: http://vegan-checker.surge.sh/
-
 # todo
 - [x] Implement `is-vegan` to look up ingredients
 - [ ] Fuzzy search + autocomplete on input field
