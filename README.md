@@ -1,5 +1,5 @@
 # vegan-checker
-Quickly check if an ingredient is vegan, not vegan, or *maybe* vegan. Based on [is-vegan](https://github.com/hmontazeri/is-vegan).
+Quickly check if an ingredient is not vegan, or *maybe* vegan. Based on [is-vegan](https://github.com/hmontazeri/is-vegan).
 
 # setting up
 Clone repo and move to the project's directory.
