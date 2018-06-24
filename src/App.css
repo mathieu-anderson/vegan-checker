@@ -22,16 +22,12 @@
 }
 
 .App-input {
-  margin: 0 1em 0 1em;
-  font-size: large;
-}
-
-.App-submit {
-  margin: 0 1em 0 1em;
-  font-size: large;
+  border: 1px dotted grey;
+  min-height: 1.5em;
+  font-size: 1.5em;
 }
 
 .App-result {
-  height: 2em;
+  min-height: 1em;
   font-size: 4em;
 }

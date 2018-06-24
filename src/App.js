@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import checkIngredients from 'is-vegan/src/modules/IngredientChecker';
-// TODO submit pr to repo to fix faulty export
+// import { filter } from 'fuzzy';
+// import Autocomplete from 'react-autocomplete';
+// import flaggedList from 'is-not-vegan/src/util/canbevegan.json';
+// import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
+import { checkIngredients } from 'is-not-vegan';
 
 import './App.css';
 
 const initialState = {
   ingredients: '',
   formattedIngredients: [],
-  isVeganList: {
+  ingredientsList: {
     nonvegan: [],
     flagged: []
   }
 };
 
 const formatIngredients = ingredients => {
-  return ingredients.split(/[ ,]+/);
+  return ingredients.split(/[ ,][ ;]+/);
 };
 
 class App extends Component {
@@ -22,50 +25,48 @@ class App extends Component {
     super(props);
     this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange (e) {
-    this.setState({
+  async handleChange (e) {
+    // const fuzzyResults = filter(e.target.value, nonVeganList);
+    // var matches = fuzzyResults.map((el) => el.string);
+    // console.log(matches);
+    await this.setState({
       ...initialState,
       ingredients: e.target.value
     });
-  }
-
-  handleSubmit (e) {
-    e.preventDefault();
-    const formattedIngredients = formatIngredients(this.state.ingredients);
+    const formattedIngredients = await formatIngredients(this.state.ingredients);
     return this.setState({
       formattedIngredients: formattedIngredients,
-      isVeganList: checkIngredients(formattedIngredients)
+      ingredientsList: checkIngredients(formattedIngredients)
     });
   }
 
   render () {
-    const { isVeganList, formattedIngredients } = this.state;
+    const { ingredientsList, formattedIngredients } = this.state;
 
     return (
       <div className='App'>
         <header className='App-header'>
           <h1 className='App-title'>Vegan checker</h1>
         </header>
-        {
-          <p className='App-result'>
-            {isVeganList.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)}
-            {isVeganList.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)}
-            {
-              formattedIngredients.filter(i => {
-                return !isVeganList.nonvegan.includes(i) && !isVeganList.flagged.includes(i);
-              }).map(i => <span style={{ padding: '0.5em', color: 'green' }}>{i}</span>)
-            }
-          </p>
-      }
+        <span className='App-result'>
+          {
+            <React.Fragment>
+              {formattedIngredients.length ? null : <span style={{ padding: '0.5em', color: 'grey' }}>?</span>}
+              {ingredientsList.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)}
+              {ingredientsList.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)}
+              {
+                formattedIngredients.filter(i => {
+                  return !ingredientsList.nonvegan.includes(i) && !ingredientsList.flagged.includes(i);
+                }).map(i => <span style={{ padding: '0.5em', color: 'grey' }}>{i}</span>)
+              }
+            </React.Fragment>
+          }
+        </span>
 
         <div className='App-form'>
-          <form onSubmit={this.handleSubmit}>
-            <label for='ingredients' >
-              Enter the ingredients to check:
-            </label>
+          <form onSubmit={e => e.preventDefault()} autoComplete='off'>
             <input
               required
               type='text'
@@ -73,13 +74,7 @@ class App extends Component {
               placeholder='pork, soy, biotin...'
               className='App-input'
               onChange={this.handleChange}
-            />
-            <input
-              type='submit'
-              name='submit'
-              value='Vegan check'
-              className='App-submit'
-            />
+              />
           </form>
         </div>
       </div>
