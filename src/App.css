@@ -17,6 +17,7 @@
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
+  max-width: 100%;
   font-size: large;
   padding: 1em;
 }

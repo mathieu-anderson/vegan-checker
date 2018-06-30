@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import { filter } from 'fuzzy';
+import { filter as fuzzyFilter } from 'fuzzy';
 // import Autocomplete from 'react-autocomplete';
-// import flaggedList from 'is-not-vegan/src/util/canbevegan.json';
-// import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
+import maybeVeganList from 'is-not-vegan/src/util/canbevegan.json';
+import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
 import { checkIngredients } from 'is-not-vegan';
 
 import './App.css';
@@ -17,7 +17,22 @@ const initialState = {
 };
 
 const formatIngredients = ingredients => {
-  return ingredients.split(/[ ,][ ;]+/);
+  return ingredients.split(',');
+};
+
+const getMatches = (value, list) => {
+  return fuzzyFilter(value, list).map(el => el.string);
+};
+
+const getAutoCompleteList = ingredients => {
+  // this only works with single ingredients
+  // refocus app to check one ingredient at the time?
+  if (ingredients.length < 3 || !ingredients.length) {
+    return;
+  }
+  const nonVeganMatches = getMatches(ingredients, nonVeganList);
+  const maybeVeganMatches = getMatches(ingredients, maybeVeganList);
+  return [...nonVeganMatches, ...maybeVeganMatches];
 };
 
 class App extends Component {
@@ -28,12 +43,10 @@ class App extends Component {
   }
 
   async handleChange (e) {
-    // const fuzzyResults = filter(e.target.value, nonVeganList);
-    // var matches = fuzzyResults.map((el) => el.string);
-    // console.log(matches);
     await this.setState({
       ...initialState,
-      ingredients: e.target.value
+      ingredients: e.target.value,
+      autoCompleteList: getAutoCompleteList(e.target.value)
     });
     const formattedIngredients = await formatIngredients(this.state.ingredients);
     return this.setState({
