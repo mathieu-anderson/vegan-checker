@@ -1,34 +1,40 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .App-header {
-  height: 15vh;
   padding: 0.1em;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 
 .App-form {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
-  max-width: 100vw;
   font-size: large;
   padding: 1em;
 }
 
 .App-input {
   font-family: "Gill Sans", sans-serif;
-  border: 1px dotted grey;
-  height: 10vh;
-  width: 20vw;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid grey;
   font-size: 1.5em;
 }
 
+.App-input:focus {
+  outline-width: 0;
+}
+
 .App-result {
-  height: 10vh;
   font-size: 4em;
 }

@@ -5,6 +5,8 @@ import maybeVeganList from 'is-not-vegan/src/util/canbevegan.json';
 import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
 import { checkIngredients } from 'is-not-vegan';
 
+import Results from './Components/Results';
+
 import './App.css';
 
 const initialState = {
@@ -49,33 +51,17 @@ class App extends Component {
   }
 
   render () {
-    const { ingredientChecked } = this.state;
+    const { nonvegan, flagged, other } = this.state.ingredientChecked;
 
     return (
       <div className='App'>
+
         <header className='App-header'>
           <h1 className='App-title'>Vegan checker</h1>
         </header>
+
         <span className='App-result'>
-          {
-            <React.Fragment>
-              {
-                ingredientChecked.other.length
-                  ? ingredientChecked.other.map(i => <span style={{ padding: '0.5em', color: 'grey' }}>{i}</span>)
-                  : <span style={{ padding: '0.5em', color: 'grey' }} />
-              }
-              {
-                ingredientChecked.nonvegan.length
-                  ? ingredientChecked.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)
-                  : null
-              }
-              {
-                ingredientChecked.flagged.length
-                  ? ingredientChecked.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)
-                  : null
-              }
-            </React.Fragment>
-          }
+          <Results nonvegan={nonvegan} flagged={flagged} other={other} />
         </span>
 
         <div className='App-form'>
@@ -83,13 +69,16 @@ class App extends Component {
             <input
               required
               type='text'
-              name='ingredients'
+              name='ingredient'
               placeholder='pork, soy, biotin...'
               className='App-input'
               onChange={this.handleChange}
+              onFocus={(e) => (e.target.placeholder = '')}
+              onBlur={(e) => (e.target.placeholder = 'pork, soy, biotin...')}
               />
           </form>
         </div>
+
       </div>
     );
   }
