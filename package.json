@@ -16,7 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "npm run test && npm run build && surge --project ./build --domain vegan-checker.surge.sh"
+    "deploy": "npm run build && surge --project ./build --domain vegan-checker.surge.sh"
   },
   "devDependencies": {
     "prop-types": "^15.6.2"

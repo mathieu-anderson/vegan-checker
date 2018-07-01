@@ -40,6 +40,11 @@ class App extends Component {
   }
 
   handleChange (e) {
+    if (!e.target.value.length) {
+      this.setState(initialState);
+      return;
+    }
+
     const ingredient = e.target.value;
     const ingredientChecked = checkIngredients([ingredient]);
     const autoCompleteList = getAutoCompleteList(ingredient);

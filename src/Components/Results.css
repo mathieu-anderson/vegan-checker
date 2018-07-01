@@ -1,0 +1,20 @@
+.Results-container {
+  max-width: 80vw;
+  display: flex;
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.Results-nonvegan {
+  color: red;
+}
+
+.Results-flagged {
+  color: orange;
+}
+
+.Results-other {
+  color: grey;
+}
