@@ -11,7 +11,8 @@ const initialState = {
   ingredient: '',
   ingredientChecked: {
     nonvegan: [],
-    flagged: []
+    flagged: [],
+    other: []
   },
   autoCompleteList: []
 };
@@ -41,7 +42,6 @@ class App extends Component {
     const ingredientChecked = checkIngredients([ingredient]);
     const autoCompleteList = getAutoCompleteList(ingredient);
     return this.setState({
-      ...initialState,
       ingredient,
       ingredientChecked,
       autoCompleteList
@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   render () {
-    const { ingredient, ingredientChecked } = this.state;
+    const { ingredientChecked } = this.state;
 
     return (
       <div className='App'>
@@ -59,14 +59,21 @@ class App extends Component {
         <span className='App-result'>
           {
             <React.Fragment>
-              {ingredient.length ? null : <span style={{ padding: '0.5em', color: 'grey' }}>?</span>}
-              {ingredientChecked.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)}
-              {ingredientChecked.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)}
               {
-                !ingredientChecked.nonvegan.includes(ingredient) && !ingredientChecked.flagged.includes(ingredient)
-                ? <span style={{ padding: '0.5em', color: 'grey' }}>{ingredient}</span>
-                : null
-            }
+                ingredientChecked.other.length
+                  ? ingredientChecked.other.map(i => <span style={{ padding: '0.5em', color: 'grey' }}>{i}</span>)
+                  : <span style={{ padding: '0.5em', color: 'grey' }} />
+              }
+              {
+                ingredientChecked.nonvegan.length
+                  ? ingredientChecked.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)
+                  : null
+              }
+              {
+                ingredientChecked.flagged.length
+                  ? ingredientChecked.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)
+                  : null
+              }
             </React.Fragment>
           }
         </span>
