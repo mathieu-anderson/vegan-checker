@@ -8,16 +8,12 @@ import { checkIngredients } from 'is-not-vegan';
 import './App.css';
 
 const initialState = {
-  ingredients: '',
-  formattedIngredients: [],
-  ingredientsList: {
+  ingredient: '',
+  ingredientChecked: {
     nonvegan: [],
     flagged: []
-  }
-};
-
-const formatIngredients = ingredients => {
-  return ingredients.split(',');
+  },
+  autoCompleteList: []
 };
 
 const getMatches = (value, list) => {
@@ -25,8 +21,6 @@ const getMatches = (value, list) => {
 };
 
 const getAutoCompleteList = ingredients => {
-  // this only works with single ingredients
-  // refocus app to check one ingredient at the time?
   if (ingredients.length < 3 || !ingredients.length) {
     return;
   }
@@ -42,21 +36,20 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  async handleChange (e) {
-    await this.setState({
-      ...initialState,
-      ingredients: e.target.value,
-      autoCompleteList: getAutoCompleteList(e.target.value)
-    });
-    const formattedIngredients = await formatIngredients(this.state.ingredients);
+  handleChange (e) {
+    const ingredient = e.target.value;
+    const ingredientChecked = checkIngredients([ingredient]);
+    const autoCompleteList = getAutoCompleteList(ingredient);
     return this.setState({
-      formattedIngredients: formattedIngredients,
-      ingredientsList: checkIngredients(formattedIngredients)
+      ...initialState,
+      ingredient,
+      ingredientChecked,
+      autoCompleteList
     });
   }
 
   render () {
-    const { ingredientsList, formattedIngredients } = this.state;
+    const { ingredient, ingredientChecked } = this.state;
 
     return (
       <div className='App'>
@@ -66,14 +59,14 @@ class App extends Component {
         <span className='App-result'>
           {
             <React.Fragment>
-              {formattedIngredients.length ? null : <span style={{ padding: '0.5em', color: 'grey' }}>?</span>}
-              {ingredientsList.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)}
-              {ingredientsList.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)}
+              {ingredient.length ? null : <span style={{ padding: '0.5em', color: 'grey' }}>?</span>}
+              {ingredientChecked.nonvegan.map(i => <span style={{padding: '0.5em', color: 'red'}}>{i}</span>)}
+              {ingredientChecked.flagged.map(i => <span style={{padding: '0.5em', color: 'orange'}}>{i}</span>)}
               {
-                formattedIngredients.filter(i => {
-                  return !ingredientsList.nonvegan.includes(i) && !ingredientsList.flagged.includes(i);
-                }).map(i => <span style={{ padding: '0.5em', color: 'grey' }}>{i}</span>)
-              }
+                !ingredientChecked.nonvegan.includes(ingredient) && !ingredientChecked.flagged.includes(ingredient)
+                ? <span style={{ padding: '0.5em', color: 'grey' }}>{ingredient}</span>
+                : null
+            }
             </React.Fragment>
           }
         </span>
