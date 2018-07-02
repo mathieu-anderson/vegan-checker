@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { filter as fuzzyFilter } from 'fuzzy';
-// import Autosuggest from 'react-autosuggest';
 import maybeVeganList from 'is-not-vegan/src/util/canbevegan.json';
 import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
 import { checkIngredients } from 'is-not-vegan';
 
 import Results from './Components/Results';
+import Input from './Containers/Input';
 
 import './App.css';
 
@@ -16,20 +16,20 @@ const initialState = {
     flagged: [],
     other: []
   },
-  autoCompleteList: []
+  autoSuggestList: []
 };
 
 const getMatches = (value, list) => {
   return fuzzyFilter(value, list).map(el => el.string);
 };
 
-const getAutoCompleteList = ingredients => {
+const getAutoSuggestList = ingredients => {
   if (ingredients.length < 3 || !ingredients.length) {
     return;
   }
   const nonVeganMatches = getMatches(ingredients, nonVeganList);
   const maybeVeganMatches = getMatches(ingredients, maybeVeganList);
-  console.log([...nonVeganMatches, ...maybeVeganMatches]);
+  // console.log([...nonVeganMatches, ...maybeVeganMatches]);
   return [...nonVeganMatches, ...maybeVeganMatches];
 };
 
@@ -48,11 +48,11 @@ class App extends Component {
 
     const ingredient = e.target.value;
     const ingredientChecked = checkIngredients([ingredient]);
-    const autoCompleteList = getAutoCompleteList(ingredient);
+    const autoSuggestList = getAutoSuggestList(ingredient);
     return this.setState({
       ingredient,
       ingredientChecked,
-      autoCompleteList
+      autoSuggestList
     });
   }
 
@@ -90,6 +90,8 @@ class App extends Component {
               />
           </form>
         </div>
+
+        <Input test={'test'} />
 
       </div>
     );
