@@ -1,5 +1,5 @@
 # vegan-checker
-Quickly check if an ingredient is not vegan, or *maybe* vegan. Based on [is-vegan](https://github.com/hmontazeri/is-vegan), using my forked package (for minor fixes atm) [is-not-vegan](https://www.npmjs.com/package/is-not-vegan).
+Quickly check if an ingredient is not vegan, or *maybe* vegan. Based [my fork](https://github.com/mathieu-anderson/is-vegan) of [is-vegan](https://github.com/hmontazeri/is-vegan), available as the [is-not-vegan](https://www.npmjs.com/package/is-not-vegan) package (first time forking / publishing a project, so not sure if I'm breaching some etiquette here).
 
 # try current state
 Work in progress, but you can try it out here : http://vegan-checker.surge.sh/
