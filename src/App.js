@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { filter as fuzzyFilter } from 'fuzzy';
-// import Autocomplete from 'react-autocomplete';
+// import Autosuggest from 'react-autosuggest';
 import maybeVeganList from 'is-not-vegan/src/util/canbevegan.json';
 import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
 import { checkIngredients } from 'is-not-vegan';
@@ -29,6 +29,7 @@ const getAutoCompleteList = ingredients => {
   }
   const nonVeganMatches = getMatches(ingredients, nonVeganList);
   const maybeVeganMatches = getMatches(ingredients, maybeVeganList);
+  console.log([...nonVeganMatches, ...maybeVeganMatches]);
   return [...nonVeganMatches, ...maybeVeganMatches];
 };
 

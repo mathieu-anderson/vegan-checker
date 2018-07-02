@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './Results.css';
 
-Results.PropTypes = {
+Results.propTypes = {
   nonvegan: PropTypes.array,
   flagged: PropTypes.array,
   other: PropTypes.array
@@ -20,17 +20,17 @@ export default function Results ({ nonvegan, flagged, other }) {
         }
         {
           other.length
-            ? other.map(i => <span className='Results-other'>{i}</span>)
+            ? <span className='Results-other'>{other[0]}</span>
             : null
         }
         {
           nonvegan.length
-            ? nonvegan.map(i => <span className='Results-nonvegan'>{i}</span>)
+            ? <span className='Results-nonvegan'>{nonvegan[0]}</span>
             : null
         }
         {
           flagged.length
-            ? flagged.map(i => <span className='Results-flagged'>{i}</span>)
+            ? <span className='Results-flagged'>{flagged[0]}</span>
             : null
         }
       </div>
