@@ -65,6 +65,12 @@ class App extends Component {
           <h1 className='App-title'>Vegan checker</h1>
         </header>
 
+        <div className='App-info'>
+          <span className='App-info-nonvegan'>Not vegan</span>
+          <span className='App-info-flagged'>Can be vegan</span>
+          <span className='App-info-other'>No data</span>
+        </div>
+
         <span className='App-result'>
           <Results nonvegan={nonvegan} flagged={flagged} other={other} />
         </span>

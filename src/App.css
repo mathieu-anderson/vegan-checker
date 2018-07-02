@@ -34,3 +34,24 @@
 .App-input:focus {
   outline-width: 0;
 }
+
+.App-info {
+  font-size: 1.2em;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.App-info-nonvegan {
+  padding: 0.4em;
+  color: red;
+}
+
+.App-info-flagged {
+  padding: 0.4em;
+  color: orange;
+}
+
+.App-info-other {
+  padding: 0.4em;
+  color: grey;
+}
