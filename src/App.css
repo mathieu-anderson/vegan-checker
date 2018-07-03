@@ -3,7 +3,6 @@
   flex-flow: column;
   align-items: center;
   align-content: center;
-  justify-content: center;
   height: 100vh;
 }
 
@@ -54,4 +53,16 @@
 .App-info-other {
   padding: 0.4em;
   color: grey;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: aliceblue;
+}
+
+.react-autosuggest__suggestions-list {
+  list-style-type: none;
+  text-align: center;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }

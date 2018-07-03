@@ -23,6 +23,7 @@ npm start
 
 # todo
 - [x] Implement `is-vegan` to look up ingredients
-- [ ] Fuzzy search + autocomplete on input field
+- [x] Fuzzy search + autocomplete on input field
+- [ ] Add link to look up problematic ingredient
 - [ ] Polish UI to make it delightful
 - [ ] Convert to React Native

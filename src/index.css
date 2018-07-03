@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: "Gill Sans", "Helvetica", sans-serif;
 }
+
+ul {
+  -webkit-padding-start: 0;
+}
