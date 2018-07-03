@@ -31,7 +31,6 @@ const getSuggestions = value => {
   return getMatches(value, [...nonVeganList, ...maybeVeganList]);
 };
 
-// Use your imagination to render suggestions.
 const renderSuggestion = suggestion => (
   <div>
     {suggestion}
@@ -42,12 +41,12 @@ class App extends Component {
   constructor () {
     super();
     this.state = initialState;
-    this.onChange = this.onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
     this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
   }
 
-  onChange (e, { newValue }) {
+  handleChange (e, { newValue }) {
     if (!newValue.length) {
       this.setState(initialState);
       return;
@@ -76,9 +75,12 @@ class App extends Component {
     const { value, suggestions, valueChecked } = this.state;
     const { nonvegan, flagged, other } = valueChecked;
     const inputProps = {
-      placeholder: 'Type a programming language',
+      className: 'App-input',
+      placeholder: 'pork, soy, biotin...',
       value,
-      onChange: this.onChange
+      onChange: this.handleChange,
+      onFocus: (e) => (e.target.placeholder = ''),
+      onBlur: (e) => (e.target.placeholder = 'pork, soy, biotin...')
     };
 
     return (
