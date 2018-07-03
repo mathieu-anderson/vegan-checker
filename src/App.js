@@ -23,7 +23,8 @@ const initialState = {
 const getMatches = (value, list) => {
   return fuzzyFilter(value, list)
     .filter(match => match.score >= 10)
-    .map(match => match.string);
+    .map(match => match.string)
+    .slice(0, 10);
 };
 
 const getSuggestions = value => {
