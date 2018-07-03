@@ -1,63 +1,84 @@
 import React, { Component } from 'react';
+import { checkIngredients } from 'is-not-vegan';
+import Autosuggest from 'react-autosuggest';
 import { filter as fuzzyFilter } from 'fuzzy';
+
 import maybeVeganList from 'is-not-vegan/src/util/canbevegan.json';
 import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
-import { checkIngredients } from 'is-not-vegan';
 
 import Results from './Components/Results';
-import Input from './Containers/Input';
 
 import './App.css';
 
 const initialState = {
-  ingredient: '',
-  ingredientChecked: {
+  value: '',
+  valueChecked: {
     nonvegan: [],
     flagged: [],
     other: []
   },
-  autoSuggestList: []
+  suggestions: []
 };
 
 const getMatches = (value, list) => {
-  return fuzzyFilter(value, list).map(el => el.string);
+  return fuzzyFilter(value, list)
+    .filter(match => match.score >= 10)
+    .map(match => match.string);
 };
 
-const getAutoSuggestList = ingredients => {
-  if (ingredients.length < 3 || !ingredients.length) {
-    return;
-  }
-  const nonVeganMatches = getMatches(ingredients, nonVeganList);
-  const maybeVeganMatches = getMatches(ingredients, maybeVeganList);
-  // console.log([...nonVeganMatches, ...maybeVeganMatches]);
-  return [...nonVeganMatches, ...maybeVeganMatches];
+const getSuggestions = value => {
+  return getMatches(value, [...nonVeganList, ...maybeVeganList]);
 };
+
+// Use your imagination to render suggestions.
+const renderSuggestion = suggestion => (
+  <div>
+    {suggestion}
+  </div>
+);
 
 class App extends Component {
-  constructor (props) {
-    super(props);
+  constructor () {
+    super();
     this.state = initialState;
-    this.handleChange = this.handleChange.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSuggestionsFetchRequested = this.onSuggestionsFetchRequested.bind(this);
+    this.onSuggestionsClearRequested = this.onSuggestionsClearRequested.bind(this);
   }
 
-  handleChange (e) {
-    if (!e.target.value.length) {
+  onChange (e, { newValue }) {
+    if (!newValue.length) {
       this.setState(initialState);
       return;
     }
+    const valueChecked = checkIngredients([newValue]);
 
-    const ingredient = e.target.value;
-    const ingredientChecked = checkIngredients([ingredient]);
-    const autoSuggestList = getAutoSuggestList(ingredient);
-    return this.setState({
-      ingredient,
-      ingredientChecked,
-      autoSuggestList
+    this.setState({
+      value: newValue,
+      valueChecked
+    });
+  }
+
+  onSuggestionsFetchRequested ({ value }) {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  }
+
+  onSuggestionsClearRequested () {
+    this.setState({
+      suggestions: []
     });
   }
 
   render () {
-    const { nonvegan, flagged, other } = this.state.ingredientChecked;
+    const { value, suggestions, valueChecked } = this.state;
+    const { nonvegan, flagged, other } = valueChecked;
+    const inputProps = {
+      placeholder: 'Type a programming language',
+      value,
+      onChange: this.onChange
+    };
 
     return (
       <div className='App'>
@@ -77,21 +98,15 @@ class App extends Component {
         </span>
 
         <div className='App-form'>
-          <form onSubmit={e => e.preventDefault()} autoComplete='off'>
-            <input
-              required
-              type='text'
-              name='ingredient'
-              placeholder='pork, soy, biotin...'
-              className='App-input'
-              onChange={this.handleChange}
-              onFocus={(e) => (e.target.placeholder = '')}
-              onBlur={(e) => (e.target.placeholder = 'pork, soy, biotin...')}
-              />
-          </form>
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={value => value}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps}
+          />
         </div>
-
-        <Input test={'test'} />
 
       </div>
     );
