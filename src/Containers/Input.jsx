@@ -17,13 +17,12 @@ const initialState = {
 };
 
 const getMatches = (value, list) => {
-  return fuzzyFilter(value, list).map(el => el.string);
+  return fuzzyFilter(value, list)
+    .filter(el => el.score >= 10)
+    .map(el => el.string);
 };
 
 const getSuggestions = value => {
-  if (value.length < 3 || !value.length) {
-    return [];
-  }
   return getMatches(value, [...nonVeganList, ...maybeVeganList]);
 };
 
