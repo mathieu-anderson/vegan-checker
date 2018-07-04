@@ -4,6 +4,11 @@ body {
   font-family: "Gill Sans", "Helvetica", sans-serif;
 }
 
+a {
+  text-decoration: none;
+  border-bottom: 1px solid blue;
+}
+
 ul {
   -webkit-padding-start: 0;
 }

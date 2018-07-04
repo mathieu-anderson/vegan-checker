@@ -9,6 +9,7 @@ import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
 import Results from './Components/Results';
 
 import './App.css';
+import reload from './reload.svg';
 
 const initialState = {
   value: '',
@@ -24,7 +25,7 @@ const getMatches = (value, list) => {
   return fuzzyFilter(value, list)
     .filter(match => match.score >= 10)
     .map(match => match.string)
-    .slice(0, 10);
+    .slice(0, 8);
 };
 
 const getSuggestions = value => {
@@ -88,13 +89,8 @@ class App extends Component {
 
         <header className='App-header'>
           <h1 className='App-title'>Vegan checker</h1>
+          <img src={reload} className='App-reload' alt='reload' onClick={() => this.setState(initialState)} />
         </header>
-
-        <div className='App-info'>
-          <span className='App-info-nonvegan'>Not vegan</span>
-          <span className='App-info-flagged'>Can be vegan</span>
-          <span className='App-info-other'>No data</span>
-        </div>
 
         <span className='App-result'>
           <Results nonvegan={nonvegan} flagged={flagged} other={other} />
@@ -108,7 +104,7 @@ class App extends Component {
             getSuggestionValue={value => value}
             renderSuggestion={renderSuggestion}
             inputProps={inputProps}
-          />
+            />
         </div>
 
       </div>

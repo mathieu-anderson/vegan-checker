@@ -1,6 +1,6 @@
 .Results-container {
-  font-size: 2rem;
   max-width: 80vw;
+  min-height: 5.7rem;
   display: flex;
   text-align: center;
   word-wrap: break-word;
@@ -8,14 +8,35 @@
   hyphens: auto;
 }
 
-.Results-nonvegan {
+.Results-nonvegan-ingredient {
+  font-size: 2.5rem;
   color: red;
 }
 
-.Results-flagged {
+.Results-nonvegan-info {
+  font-size: 1rem;
+  color: red;
+  padding: 0.5em;
+}
+
+.Results-flagged-ingredient {
+  font-size: 2.5rem;
   color: orange;
 }
 
-.Results-other {
+.Results-flagged-info {
+  font-size: 2.5rem;
+  color: orange;
+  padding: 0.5em;
+}
+
+.Results-other-ingredient {
+  font-size: 2.5rem;
   color: grey;
+}
+
+.Results-other-info {
+  font-size: 1rem;
+  color: grey;
+  padding: 0.5em;
 }

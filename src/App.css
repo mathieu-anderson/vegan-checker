@@ -7,7 +7,13 @@
 }
 
 .App-header {
-  padding: 0.1em;
+  text-align: center;
+}
+
+.App-reload {
+  min-width: 1.5em;
+  margin-bottom: 1em;
+  cursor: pointer;
 }
 
 .App-title {
@@ -23,6 +29,7 @@
 }
 
 .App-input {
+  width: 100%;
   font-family: "Gill Sans", sans-serif;
   text-align: center;
   border: none;
@@ -34,35 +41,14 @@
   outline-width: 0;
 }
 
-.App-info {
-  font-size: 1.2em;
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-.App-info-nonvegan {
-  padding: 0.4em;
-  color: red;
-}
-
-.App-info-flagged {
-  padding: 0.4em;
-  color: orange;
-}
-
-.App-info-other {
-  padding: 0.4em;
-  color: grey;
-}
-
 .react-autosuggest__suggestion--highlighted {
+  color: black;
   background-color: aliceblue;
+  cursor: pointer;
 }
 
 .react-autosuggest__suggestions-list {
+  color: grey;
   list-style-type: none;
-  text-align: center;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: auto;
+  text-align: left;
 }
