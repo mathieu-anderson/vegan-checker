@@ -16,7 +16,7 @@ Install dependencies (requires having npm installed).
 npm install
 ```
 
-Start dev sever on localhost:3000
+Start dev server on `localhost:3000`
 ```
 npm start
 ```
@@ -24,6 +24,6 @@ npm start
 # todo
 - [x] Implement `is-vegan` to look up ingredients
 - [x] Fuzzy search + autocomplete on input field
-- [ ] Add link to look up problematic ingredient
-- [ ] Polish UI to make it delightful
+- [x] Add link to look up problematic ingredient (only google link now, too heavy to check actual source, but would be nice if added to is-vegan package)
+- [ ] Polish UI to make it delightful : animation? better page design?
 - [ ] Convert to React Native
