@@ -25,5 +25,6 @@ npm start
 - [x] Implement `is-vegan` to look up ingredients
 - [x] Fuzzy search + autocomplete on input field
 - [x] Add link to look up problematic ingredient (only google link now, too heavy to check actual source, but would be nice if added to is-vegan package)
+- [ ] Rework mobile UI : can't be the same as desktop
 - [ ] Polish UI to make it delightful : animation? better page design?
 - [ ] Convert to React Native
