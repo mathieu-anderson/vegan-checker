@@ -45,7 +45,7 @@ export default function Results ({ nonvegan, flagged, other }) {
           flagged.length
             ? <div>
               <div className='Results-flagged-ingredient'>{flagged[0]}</div>
-              <div className='Results-nonvegan-info'>
+              <div className='Results-flagged-info'>
                 Sometimes vegan. <a href={getLink(flagged[0])}>Learn more.</a>
               </div>
             </div>
