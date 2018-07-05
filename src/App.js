@@ -21,6 +21,16 @@ const initialState = {
   suggestions: []
 };
 
+const getInputClassName = (value, nonvegan, flagged) => {
+  if (value === nonvegan[0]) {
+    return 'App-input App-input-nonvegan';
+  } else if (value === flagged[0]) {
+    return 'App-input App-input-flagged';
+  } else {
+    return 'App-input';
+  }
+};
+
 const getMatches = (value, list) => {
   return fuzzyFilter(value, list)
     .filter(match => match.score >= 10)
@@ -35,6 +45,12 @@ const getSuggestions = value => {
 const renderSuggestion = suggestion => (
   <div>
     {suggestion}
+  </div>
+);
+
+const renderInputComponent = (inputProps) => (
+  <div>
+    <input {...inputProps} />
   </div>
 );
 
@@ -76,7 +92,7 @@ class App extends Component {
     const { value, suggestions, valueChecked } = this.state;
     const { nonvegan, flagged, other } = valueChecked;
     const inputProps = {
-      className: 'App-input',
+      className: getInputClassName(value, nonvegan, flagged),
       placeholder: 'pork, soy, biotin...',
       value,
       onChange: this.handleChange,
@@ -88,7 +104,7 @@ class App extends Component {
       <div className='App'>
 
         <header className='App-header'>
-          <h1 className='App-title'>Vegan checker</h1>
+          <h1 className='App-title App-reload' onClick={() => this.setState(initialState)}>Vegan checker</h1>
           <img src={reload} className='App-reload' alt='reload' onClick={() => this.setState(initialState)} />
         </header>
 
@@ -102,6 +118,7 @@ class App extends Component {
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={value => value}
+            renderInputComponent={renderInputComponent}
             renderSuggestion={renderSuggestion}
             inputProps={inputProps}
             />

@@ -37,6 +37,14 @@
   font-size: 1.5em;
 }
 
+.App-input-nonvegan {
+  color: red;
+}
+
+.App-input-flagged {
+  color: orange;
+}
+
 .App-input:focus {
   outline-width: 0;
 }
