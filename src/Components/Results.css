@@ -1,6 +1,6 @@
 .Results-container {
   max-width: 80vw;
-  min-height: 2.3rem;
+  min-height: 2rem;
   display: flex;
   text-align: center;
   word-wrap: break-word;
@@ -11,17 +11,14 @@
 .Results-nonvegan-info {
   font-size: 1rem;
   color: red;
-  padding: 0.5em;
 }
 
 .Results-flagged-info {
   font-size: 1rem;
   color: orange;
-  padding: 0.5em;
 }
 
 .Results-other-info {
   font-size: 1rem;
   color: grey;
-  padding: 0.5em;
 }

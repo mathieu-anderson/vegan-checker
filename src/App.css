@@ -3,7 +3,6 @@
   flex-flow: column;
   align-items: center;
   align-content: center;
-  height: 100vh;
 }
 
 .App-header {
@@ -11,16 +10,17 @@
 }
 
 .App-reload {
-  min-width: 1.5em;
+  min-width: 1em;
   margin-bottom: 1em;
   cursor: pointer;
 }
 
 .App-title {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .App-form {
+  min-width: 30%;
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
@@ -34,7 +34,7 @@
   text-align: center;
   border: none;
   border-bottom: 1px solid grey;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .App-input-nonvegan {
@@ -52,11 +52,17 @@
 .react-autosuggest__suggestion--highlighted {
   color: black;
   background-color: aliceblue;
+  padding-left: 0.2em;
   cursor: pointer;
 }
 
 .react-autosuggest__suggestions-list {
   color: grey;
+  margin: 0;
+  padding-left: 0.4em;
+  padding-top: 0.3em;
+  line-height: 1.5em;
+  border-left: 1px dotted grey;
   list-style-type: none;
   text-align: left;
 }
