@@ -26,6 +26,9 @@ npm start
 - [x] Fuzzy search + autocomplete on input field
 - [x] Add link to look up problematic ingredient (only google link now, too heavy to check actual source, but would be nice if added to is-vegan package)
 - [x] Fix mobile UI
-- [ ] Polish UI to make it delightful : animation? better page design? multiline input for long ingredients on mobile?
+- [ ] Polish UI to make it delightful / usable :
+  - [ ] `About` info : what this app does
+  - [ ] Expressive animations on red and orange cases
+  - [ ] Support for multiline result for long ingredients
 - [ ] Make production ready : about page, license, security, hosting, testing
 - [ ] Convert to React Native
