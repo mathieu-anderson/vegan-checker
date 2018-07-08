@@ -5,20 +5,6 @@
   align-content: center;
 }
 
-.App-header {
-  text-align: center;
-}
-
-.App-reload {
-  min-width: 1em;
-  margin-bottom: 1em;
-  cursor: pointer;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
 .App-form {
   min-width: 30%;
   display: flex;

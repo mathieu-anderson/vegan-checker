@@ -6,10 +6,10 @@ import { filter as fuzzyFilter } from 'fuzzy';
 import maybeVeganList from 'is-not-vegan/src/util/canbevegan.json';
 import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
 
+import Header from './Components/Header';
 import Results from './Components/Results';
 
 import './App.css';
-import reload from './reload.svg';
 
 const initialState = {
   value: '',
@@ -31,26 +31,16 @@ const getInputClassName = (value, nonvegan, flagged) => {
   }
 };
 
-const getMatches = (value, list) => {
-  return fuzzyFilter(value, list)
+const getSuggestions = value => {
+  return fuzzyFilter(value, [...nonVeganList, ...maybeVeganList])
     .filter(match => match.score >= 10)
     .map(match => match.string)
     .slice(0, 8);
 };
 
-const getSuggestions = value => {
-  return getMatches(value, [...nonVeganList, ...maybeVeganList]);
-};
-
 const renderSuggestion = suggestion => (
   <div>
     {suggestion}
-  </div>
-);
-
-const renderInputComponent = (inputProps) => (
-  <div>
-    <input {...inputProps} />
   </div>
 );
 
@@ -103,14 +93,9 @@ class App extends Component {
     return (
       <div className='App'>
 
-        <header className='App-header'>
-          <h1 className='App-title App-reload' onClick={() => this.setState(initialState)}>Vegan checker</h1>
-          <img src={reload} className='App-reload' alt='reload' onClick={() => this.setState(initialState)} />
-        </header>
+        <Header onClick={() => this.setState(initialState)} />
 
-        <span className='App-result'>
-          <Results nonvegan={nonvegan} flagged={flagged} other={other} />
-        </span>
+        <Results nonvegan={nonvegan} flagged={flagged} other={other} />
 
         <div className='App-form'>
           <Autosuggest
@@ -118,7 +103,6 @@ class App extends Component {
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={value => value}
-            renderInputComponent={renderInputComponent}
             renderSuggestion={renderSuggestion}
             inputProps={inputProps}
             />

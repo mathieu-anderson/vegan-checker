@@ -25,7 +25,9 @@ export default function Results ({ nonvegan, flagged, other }) {
         }
         {
           other.length
-            ? <div className='Results-other-info'>No data. <a href={getLink(other[0], '+vegan')}>Learn more.</a></div>
+            ? <div className='Results-other-info'>
+              No data. <a href={getLink(other[0], '+vegan')}>Learn more.</a>
+            </div>
             : null
         }
         {

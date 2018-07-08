@@ -1,0 +1,13 @@
+.Header-container {
+  text-align: center;
+}
+
+.Header-reload {
+  min-width: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+
+.Header-title {
+  font-size: 1.5em;
+}
