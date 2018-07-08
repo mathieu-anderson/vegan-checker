@@ -3,7 +3,7 @@ import { checkIngredients } from 'is-not-vegan';
 import Autosuggest from 'react-autosuggest';
 import { filter as fuzzyFilter } from 'fuzzy';
 
-import maybeVeganList from 'is-not-vegan/src/util/canbevegan.json';
+import flaggedList from 'is-not-vegan/src/util/canbevegan.json';
 import nonVeganList from 'is-not-vegan/src/util/nonvegan.json';
 
 import Header from './Components/Header';
@@ -32,7 +32,7 @@ const getInputClassName = (value, nonvegan, flagged) => {
 };
 
 const getSuggestions = value => {
-  return fuzzyFilter(value, [...nonVeganList, ...maybeVeganList])
+  return fuzzyFilter(value, [...nonVeganList, ...flaggedList])
     .filter(match => match.score >= 10)
     .map(match => match.string)
     .slice(0, 8);
