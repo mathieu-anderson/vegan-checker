@@ -1,11 +1,11 @@
-.App {
+.Checker {
   display: flex;
   flex-flow: column;
   align-items: center;
   align-content: center;
 }
 
-.App-form {
+.Checker-form {
   min-width: 30%;
   display: flex;
   flex-flow: column wrap;
@@ -14,7 +14,7 @@
   padding: 1em;
 }
 
-.App-input {
+.Checker-input {
   width: 100%;
   font-family: "Gill Sans", sans-serif;
   text-align: center;
@@ -23,15 +23,15 @@
   font-size: 1.3em;
 }
 
-.App-input-nonvegan {
+.Checker-input-nonvegan {
   color: red;
 }
 
-.App-input-flagged {
+.Checker-input-flagged {
   color: orange;
 }
 
-.App-input:focus {
+.Checker-input:focus {
   outline-width: 0;
 }
 
