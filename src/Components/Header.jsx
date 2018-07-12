@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import reload from '../reload.svg';
+import reload from '../assets/reload.svg';
 import './Header.css';
 
 Header.propTypes = {
