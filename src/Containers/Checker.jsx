@@ -18,7 +18,8 @@ const initialState = {
     flagged: [],
     other: []
   },
-  suggestions: []
+  suggestions: [],
+  isOpen: true
 };
 
 const getInputClassName = (value, nonvegan, flagged) => {
@@ -79,7 +80,7 @@ class Checker extends Component {
   }
 
   render () {
-    const { value, suggestions, valueChecked } = this.state;
+    const { value, suggestions, valueChecked, isOpen } = this.state;
     const { nonvegan, flagged, other } = valueChecked;
     const inputProps = {
       className: getInputClassName(value, nonvegan, flagged),
@@ -95,7 +96,13 @@ class Checker extends Component {
 
         <Header onClick={() => this.setState(initialState)} />
 
-        <Results nonvegan={nonvegan} flagged={flagged} other={other} />
+        <Results
+          nonvegan={nonvegan}
+          flagged={flagged}
+          other={other}
+          pose={isOpen ? 'open' : 'closed'}
+          hostRef
+        />
 
         <div className='Checker-form'>
           <Autosuggest

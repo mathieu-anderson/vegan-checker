@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import posed from 'react-pose';
 
 import './Results.css';
 
@@ -14,10 +15,10 @@ const getLink = (str, cat) => {
   return `https://www.google.be/search?q=${formattedStr}${cat}`;
 };
 
-export default function Results ({ nonvegan, flagged, other }) {
+function Results ({ nonvegan, flagged, other, hostRef }) {
   return (
     <React.Fragment>
-      <div className='Results-container'>
+      <div className='Results-container' hostRef>
         {
           !other.length && !nonvegan.length && !flagged.length
             ? <div className='Results-other-ingredient' />
@@ -48,3 +49,7 @@ export default function Results ({ nonvegan, flagged, other }) {
     </React.Fragment>
   );
 }
+
+export default posed(Results)({
+  draggable: true
+});
